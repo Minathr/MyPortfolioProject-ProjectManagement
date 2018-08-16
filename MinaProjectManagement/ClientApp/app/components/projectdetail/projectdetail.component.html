@@ -1,0 +1,177 @@
+<div class="card border-success">
+    <div class="card-header bg-success">
+        <div class="row">
+            <div class="col-6">
+                <h2>Project Tasks</h2>
+            </div>
+            <div class="col-6">
+                <button class="btn btn-info float-right" data-toggle="modal" data-target="#mdlAddTask">
+                    Define a New Task
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Due Date</th>
+                    <th scope="col">Assignee</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let task of projectDetail.Tasks;let i=index">
+                    <th scope="row">{{i + 1}}</th>
+                    <td>{{task.Name}}</td>
+                    <td>{{task.DueDateTime | date:'yyyy-MM-dd'}}</td>
+                    <td>{{task.AssigneeName}}</td>
+                    <td>{{task.ProjectTaskStatus | projectTaskStatus}}</td>
+                    <td>
+                        <button click class="btn btn-warning" (click)="openEditModal(mdlEditTask,task)">
+                            Edit
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div id="mdlAddTask" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Define a New Task</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input [(ngModel)]="selectedProjectTask.Name" type="text" class="form-control" placeholder="Name">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Assignee</label>
+                            <select class="form-control" [(ngModel)]="selectedProjectTask.Assignee">
+                                <option *ngFor="let member of teamMembers" [ngValue]="member">{{member.Name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Due Date</label>
+                            <input [(ngModel)]="selectedProjectTask.DueDateTime" type="date" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select class="form-control" [(ngModel)]="selectedProjectTask.ProjectTaskStatus">
+                                <option value="0">
+                                    Unassigned
+                                </option>
+                                <option value="1">
+                                    In Progress
+                                </option>
+                                <option value="2">
+                                    Done
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea [(ngModel)]="selectedProjectTask.Description" class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="addNewTask(selectedProjectTask)" data-dismiss="modal">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #mdlEditTask let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h5 class="modal-title">Edit Task</h5>
+        <button type="button" class="close" data-dismiss="modal" (click)="c('close-button')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input [(ngModel)]="selectedProjectTask.Name" type="text" class="form-control" placeholder="Name">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label>Assignee</label>
+                    <select class="form-control" [(ngModel)]="selectedProjectTask.AssigneeId">
+                        <option *ngFor="let member of teamMembers" [ngValue]="member.Id">{{member.Name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label>Due Date</label>
+                    <input [ngModel]="selectedProjectTask.DueDateTime | date:'yyyy-MM-dd'" type="datetime" class="form-control" (ngModelChange)="selectedProjectTask.DueDateTime=$event">
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label>Status</label>
+                    <select class="form-control" [(ngModel)]="selectedProjectTask.ProjectTaskStatus">
+                        <option value="0">
+                            Unassigned
+                        </option>
+                        <option value="1">
+                            In Progress
+                        </option>
+                        <option value="2">
+                            Done
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea [(ngModel)]="selectedProjectTask.Description" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="editTask(selectedProjectTask)" data-dismiss="modal">Save changes</button>
+            <button type="button" class="btn btn-secondary" (click)="c('close-button')" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</ng-template>

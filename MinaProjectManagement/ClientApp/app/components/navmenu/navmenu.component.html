@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarToggler">
+        <a class="navbar-brand" href="#">Mina!</a>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item" routerLinkActive="active" *ngIf="isAdmin()">
+                <a routerLink="/projects" class="nav-link">Projects</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active" *ngIf="isAdmin()">
+                <a routerLink="/teams" class="nav-link">Teams</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active" *ngIf="isAdmin()">
+                <a routerLink="/users" class="nav-link">Users</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active" *ngIf="isAdmin() || isMember()">
+                <a routerLink="/mytasks" class="nav-link">My Tasks</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active" *ngIf="!isLoggedIn()">
+                <a routerLink="/login" class="nav-link">Login</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active" *ngIf="isLoggedIn()" (click)="logout()">
+                <a class="nav-link">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>

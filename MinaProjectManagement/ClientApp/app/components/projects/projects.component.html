@@ -1,0 +1,130 @@
+<div class="card border-success">
+    <div class="card-header bg-success">
+        <div class="row">
+            <div class="col-2">
+                <h2>Projects</h2>
+            </div>
+            <div class="col-10">
+                <button class="btn btn-info float-right" data-toggle="modal" data-target="#mdlNewProject">
+                    Define a New Project
+                </button>
+            </div>
+        </div>        
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Begin Date</th>
+                    <th scope="col">Finish Date</th>
+                    <th scope="col">Details</th>
+                    <th scope="col">Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let project of projects;let i=index">
+                    <th scope="row">{{i + 1}}</th>
+                    <td>{{project.Name }}</td>
+                    <td>{{project.BeginDateTime | date:'yyyy-MM-dd'}}</td>
+                    <td>{{project.FinishDateTime | date:'yyyy-MM-dd'}}</td>
+                    <td>
+                        <a class="btn btn-warning" routerLink="/projects/{{project.Id}}">Details</a>
+                    </td>
+                    <td>
+                        <button click class="btn btn-warning" (click)="openEditModal(mdlEditProject,project)">
+                            Edit
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div id="mdlNewProject" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Define a New Project</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input [(ngModel)]="newProject.Name" type="text" class="form-control" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <label>Begin Date</label>
+                        <input [(ngModel)]="newProject.BeginDateTime" type="date" class="form-control" placeholder="Begin Date">
+                    </div>
+                    <div class="col-4">
+                        <label>Finish Date</label>
+                        <input [(ngModel)]="newProject.FinishDateTime" type="date" class="form-control" placeholder="Finish Date">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea [(ngModel)]="newProject.description" class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="defineNewProject()" data-dismiss="modal">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #mdlEditProject let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h5 class="modal-title">Edit Project</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="d('exit')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body container-fluid">
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input [(ngModel)]="selectedProject.Name" type="text" class="form-control" placeholder="Name">
+                </div>
+            </div>
+            <div class="col-4">
+                <label>Begin Date</label>
+                <input [ngModel]="selectedProject.BeginDateTime | date:'yyyy-MM-dd'" type="date" class="form-control" (ngModelChange)="selectedProject.BeginDateTime=$event" placeholder="Begin Date">
+            </div>
+            <div class="col-4">
+                <label>Finish Date</label>
+                <input [ngModel]="selectedProject.FinishDateTime | date:'yyyy-MM-dd'" type="date" class="form-control" (ngModelChange)="selectedProject.FinishDateTime=$event" placeholder="Finish Date">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea [(ngModel)]="selectedProject.Description" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="editProject(mdlEditProject)" data-dismiss="modal">Save changes</button>
+        <button type="button" class="btn btn-secondary" (click)="c('close-button')" data-dismiss="modal">Close</button>
+    </div>
+
+</ng-template>
+
+    

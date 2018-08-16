@@ -1,0 +1,130 @@
+<div class="card border-success">
+    <div class="card-header bg-success">
+        <div class="row">
+            <div class="col-6">
+                <h2>Team Members</h2>
+            </div>
+            <div class="col-6">
+                <button class="btn btn-info float-right" data-toggle="modal" data-target="#mdlAddMember">
+                    Assign a New Member
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let member of teamDetail.Members;let i=index">
+                    <th scope="row">{{i + 1}}</th>
+                    <td>{{member.Name}}</td>
+                    <td>{{member.Email}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="card border-primary" style="margin-top:10px">
+    <div class="card-header bg-primary">
+        <div class="row">
+            <div class="col-6">
+                <h2>Projects</h2>
+            </div>
+            <div class="col-6">
+                <button class="btn btn-info float-right" data-toggle="modal" data-target="#mdlAddProject">
+                    Assign a New Project
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Begin Date</th>
+                    <th scope="col">Finish Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let project of teamDetail.Projects;let i=index">
+                    <th scope="row">{{i + 1}}</th>
+                    <td>{{project.Name}}</td>
+                    <td>{{project.BeginDateTime | date:'yyyy-MM-dd'}}</td>
+                    <td>{{project.FinishDateTime | date:'yyyy-MM-dd'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div id="mdlAddMember" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Assign a New Member</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <select class="form-control" [(ngModel)]="selectedUser">
+                                <option *ngFor="let user of usersWithoutTeam" [ngValue]="user">{{user.Name}}
+                                <option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="addNewMember(selectedUser)" data-dismiss="modal">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="mdlAddProject" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Commit a New Project</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <select class="form-control" [(ngModel)]="selectedProject">
+                                <option *ngFor="let project of projectsWithoutTeam" [ngValue]="project">{{project.Name}}
+<option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="addNewProject(selectedProject)" data-dismiss="modal">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+

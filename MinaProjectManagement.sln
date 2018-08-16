@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2015
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinaProjectManagement", "MinaProjectManagement\MinaProjectManagement.csproj", "{6636DFD4-7CB6-4CF3-90FE-E79D6412C1FF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6636DFD4-7CB6-4CF3-90FE-E79D6412C1FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6636DFD4-7CB6-4CF3-90FE-E79D6412C1FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6636DFD4-7CB6-4CF3-90FE-E79D6412C1FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6636DFD4-7CB6-4CF3-90FE-E79D6412C1FF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5FB1BAC8-7449-4A69-9BE1-D1D8AAD51192}
+	EndGlobalSection
+EndGlobal

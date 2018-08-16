@@ -1,0 +1,79 @@
+<div class="card border-success">
+    <div class="card-header bg-success">
+        <h2>Users</h2>      
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Team</th>
+                    <th scope="col">Is Admin</th>
+                    <th scope="col">Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users;let i=index">
+                    <th scope="row">{{i + 1}}</th>
+                    <td>{{user.Name }}</td>
+                    <td>{{user.Email}}</td>
+                    <td>{{user.PhoneNumber}}</td>
+                    <td>{{user.TeamName}}</td>
+                    <td>
+                        <input disabled [(ngModel)]="user.IsAdmin" class="form-check-input" type="checkbox">
+                    </td>
+                    <td>
+                        <button click class="btn btn-warning" (click)="openEditModal(mdlEditUser,user)">
+                            Edit
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<ng-template #mdlEditUser let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h5 class="modal-title">Edit User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="d('exit')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body container-fluid">
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input [(ngModel)]="selectedUser.Name" type="text" class="form-control" placeholder="Name">
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input [(ngModel)]="selectedUser.PhoneNumber" type="tel" class="form-control" placeholder="Phone Number">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="form-check">
+                    <input [(ngModel)]="selectedUser.IsAdmin" class="form-check-input" type="checkbox">
+                    <label class="form-check-label">
+                        Is Admin
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="editUser(mdlEditUser)" data-dismiss="modal">Save changes</button>
+        <button type="button" class="btn btn-secondary" (click)="c('close-button')" data-dismiss="modal">Close</button>
+    </div>
+
+</ng-template>
+
+    

@@ -1,0 +1,93 @@
+<div class="card border-success">
+    <div class="card-header bg-success">
+        <div class="row">
+            <div class="col-2">
+                <h2>Teams</h2>
+            </div>
+            <div class="col-10">
+                <button class="btn btn-info float-right" data-toggle="modal" data-target="#mdlNewTeam">
+                    Define a New Team
+                </button>
+            </div>
+        </div>        
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Details</th>
+                    <th scope="col">Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let team of teams;let i=index">
+                    <th scope="row">{{i + 1}}</th>
+                    <td>{{team.Name }}</td>
+                    <td>
+                        <a class="btn btn-warning" routerLink="/teams/{{team.Id}}">Details</a>
+                    </td>
+                    <td>
+                        <button click class="btn btn-warning" (click)="openEditModal(mdlEditTeam,team)">
+                            Edit
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div id="mdlNewTeam" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Define a New Team</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input [(ngModel)]="newTeam.Name" type="text" class="form-control" placeholder="Name">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="defineNewTeam()" data-dismiss="modal">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #mdlEditTeam let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h5 class="modal-title">Edit Team</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="d('exit')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body container-fluid">
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input [(ngModel)]="selectedTeam.Name" type="text" class="form-control" placeholder="Name">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="editProject(mdlEditTeam)" data-dismiss="modal">Save changes</button>
+        <button type="button" class="btn btn-secondary" (click)="c('close-button')" data-dismiss="modal">Close</button>
+    </div>
+</ng-template>
+
+    
